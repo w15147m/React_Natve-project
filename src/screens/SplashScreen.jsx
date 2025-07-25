@@ -1,7 +1,7 @@
-/ src/screens/SplashScreen.js
+// / src/screens/SplashScreen.js
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { colors, fonts, dimensions } from '../constants';
+import { colors } from '../constants';
 
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
