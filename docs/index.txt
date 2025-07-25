@@ -1,0 +1,7 @@
+npx react-native start
+npx react-native run-android
+
+
+
+change java sdk -v
+sudo update-alternatives --config javac

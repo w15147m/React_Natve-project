@@ -1,0 +1,4 @@
+/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/x86_64/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/foo.dir
+/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/x86_64/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/boo.dir
+/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/x86_64/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/edit_cache.dir
+/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/x86_64/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/rebuild_cache.dir

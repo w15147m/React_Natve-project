@@ -1,0 +1,23 @@
+# Android build files
+/android/.gradle/
+/android/.idea/
+/android/app/.cxx/
+/android/app/build/
+/android/build/
+/android/app/debug.keystore
+
+# iOS build files
+ios/Pods/
+ios/build/
+
+# Xcode
+*.xcworkspace
+*.xcodeproj/*
+*.xcuserdata
+
+# Misc
+*.log
+*.lock
+*.tmp
+*.swp
+node_modules/
