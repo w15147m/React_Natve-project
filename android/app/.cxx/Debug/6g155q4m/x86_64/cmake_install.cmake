@@ -44,6 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/x86_64/rnasyncstorage_autolinked_build/cmake_install.cmake")
   include("/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/x86_64/rngesturehandler_codegen_autolinked_build/cmake_install.cmake")
   include("/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/x86_64/safeareacontext_autolinked_build/cmake_install.cmake")
   include("/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/x86_64/rnscreens_autolinked_build/cmake_install.cmake")

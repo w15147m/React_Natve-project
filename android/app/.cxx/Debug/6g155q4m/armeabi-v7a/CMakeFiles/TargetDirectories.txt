@@ -1,6 +1,9 @@
 /home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/armeabi-v7a/CMakeFiles/appmodules.dir
 /home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/armeabi-v7a/CMakeFiles/edit_cache.dir
 /home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/armeabi-v7a/rnasyncstorage_autolinked_build/CMakeFiles/react_codegen_rnasyncstorage.dir
+/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/armeabi-v7a/rnasyncstorage_autolinked_build/CMakeFiles/edit_cache.dir
+/home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/armeabi-v7a/rnasyncstorage_autolinked_build/CMakeFiles/rebuild_cache.dir
 /home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/armeabi-v7a/rngesturehandler_codegen_autolinked_build/CMakeFiles/react_codegen_rngesturehandler_codegen.dir
 /home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/armeabi-v7a/rngesturehandler_codegen_autolinked_build/CMakeFiles/edit_cache.dir
 /home/pc/code/React/react-nateve/MyApp/android/app/.cxx/Debug/6g155q4m/armeabi-v7a/rngesturehandler_codegen_autolinked_build/CMakeFiles/rebuild_cache.dir
