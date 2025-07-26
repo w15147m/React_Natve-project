@@ -1,13 +1,45 @@
 // src/screens/HomeScreen.js
-import React from 'react';
+import React, { useEffect, useState } from 'react'; // <-- ADD useEffect and useState
 import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/common/Header';
 import BalanceCard from '../components/common/BalanceCard';
 import TransactionItem from '../components/common/TransactionItem';
 import { colors, fonts } from '../constants';
+import { supabase } from '../lib/supabase'; // <-- IMPORT SUPABASE
 
 const HomeScreen = ({ navigation }) => {
+  const [connectionStatus, setConnectionStatus] = useState('Testing...'); // <-- ADD STATE
+
+  // v-- ADD THIS useEffect HOOK TO TEST CONNECTION --v
+  useEffect(() => {
+    const testConnection = async () => {
+      console.log("🔄 Testing Supabase connection...");
+      setConnectionStatus('Testing...');
+      
+      try {
+        // Try to fetch data from the status table
+        const { data, error } = await supabase
+          .from('status')
+          .select('*');
+
+        if (error) {
+          console.error('❌ Connection failed:', error.message);
+          setConnectionStatus(`❌ Error: ${error.message}`);
+        } else {
+          console.log('✅ Connection successful! Data:', data);
+          setConnectionStatus(`✅ Connected! Found ${data.length} status records`);
+        }
+      } catch (error) {
+        console.error('❌ Unexpected error:', error);
+        setConnectionStatus('❌ Unexpected error occurred');
+      }
+    };
+
+    testConnection();
+  }, []);
+  // ^-- END OF useEffect HOOK --^
+
   const transactions = [
     { id: 1, title: 'Upwork Income', amount: 850, type: 'income', date: 'Today', icon: '⬆️', color: colors.success },
     { id: 2, title: 'Transfer', amount: -85, type: 'expense', date: 'Yesterday', icon: '💳', color: colors.primary },
@@ -26,9 +58,14 @@ const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header
-        title="Good Afternoon, Ervina Morgana"
+        title="Good Afternoon, User"
         rightIcon={<Text style={styles.headerIcon}>🔔</Text>}
       />
+      
+      {/* ADD CONNECTION STATUS DISPLAY */}
+      <View style={styles.connectionStatus}>
+        <Text style={styles.connectionText}>{connectionStatus}</Text>
+      </View>
       
       <ScrollView showsVerticalScrollIndicator={false}>
         <BalanceCard 
@@ -82,6 +119,20 @@ const styles = StyleSheet.create({
   headerIcon: {
     fontSize: 20,
     color: colors.white,
+  },
+  // ADD STYLES FOR CONNECTION STATUS
+  connectionStatus: {
+    backgroundColor: colors.gray,
+    padding: 12,
+    marginHorizontal: 20,
+    marginTop: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  connectionText: {
+    fontSize: fonts.sizes.small,
+    color: colors.text,
+    fontWeight: '500',
   },
   section: {
     paddingHorizontal: 20,

@@ -1,6 +1,7 @@
-// src/screens/OnboardingScreen.js
+
+// Updated src/screens/OnboardingScreen.js
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/common/Button';
 import { colors, fonts, dimensions } from '../constants';
@@ -18,10 +19,12 @@ const OnboardingScreen = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <Button
             title="Get Started"
-            onPress={() => navigation.replace('Main')}
+            onPress={() => navigation.navigate('Register')}
             style={styles.button}
           />
-          <Text style={styles.loginText}>Already Have Account? Log in</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.loginText}>Already Have Account? Log in</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -64,8 +67,9 @@ const styles = StyleSheet.create({
   },
   loginText: {
     textAlign: 'center',
-    color: colors.darkGray,
+    color: colors.primary,
     fontSize: fonts.sizes.medium,
+    fontWeight: '600',
   },
 });
 

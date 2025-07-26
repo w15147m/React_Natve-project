@@ -1,3 +1,4 @@
+// src/components/common/Input.js
 import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 import { colors, fonts, dimensions } from '../../constants';
@@ -8,6 +9,7 @@ const Input = ({
   onChangeText, 
   placeholder, 
   keyboardType = 'default',
+  secureTextEntry = false,
   style,
   error 
 }) => {
@@ -20,7 +22,10 @@ const Input = ({
         onChangeText={onChangeText}
         placeholder={placeholder}
         keyboardType={keyboardType}
+        secureTextEntry={secureTextEntry}
         placeholderTextColor={colors.darkGray}
+        autoCapitalize={keyboardType === 'email-address' ? 'none' : 'sentences'}
+        autoCorrect={false}
       />
       {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
@@ -45,6 +50,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     fontSize: fonts.sizes.medium,
     backgroundColor: colors.white,
+    color: colors.text,
   },
   inputError: {
     borderColor: colors.error,
