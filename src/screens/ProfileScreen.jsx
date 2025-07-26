@@ -1,79 +1,35 @@
 // src/screens/ProfileScreen.js
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/common/Header';
-import Button from '../components/common/Button';
 import { colors, fonts, dimensions } from '../constants';
-import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../lib/supabase';
+import { useAuth } from '../contexts/AuthContext'; // 1. Import the useAuth hook
 
 const ProfileScreen = ({ navigation }) => {
-  const { user, signOut } = useAuth();
-  const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // 2. Get the signOut function from the auth context
+  const { signOut, user } = useAuth();
 
-  useEffect(() => {
-    fetchUserProfile();
-  }, [user]);
-
-  const fetchUserProfile = async () => {
-    if (!user) return;
-
+  // 3. Define the sign out handler
+  const handleSignOut = async () => {
     try {
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('id', user.id)
-        .single();
-
-      if (error) {
-        console.error('Error fetching profile:', error);
-      } else {
-        setUserProfile(data);
-      }
+      await signOut();
+      // The AppNavigator will automatically handle redirecting to the login screen
     } catch (error) {
-      console.error('Unexpected error:', error);
-    } finally {
-      setLoading(false);
+      Alert.alert("Sign Out Error", error.message);
     }
   };
 
-  const handleLogout = () => {
-    Alert.alert(
-      'Sign Out',
-      'Are you sure you want to sign out?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Sign Out',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await signOut();
-            } catch (error) {
-              Alert.alert('Error', 'Failed to sign out. Please try again.');
-            }
-          },
-        },
-      ]
-    );
-  };
-
   const menuItems = [
-    { title: 'Invite Friends', icon: '👥', color: colors.primary, action: () => {} },
-    { title: 'Account Info', icon: '👤', color: colors.secondary, action: () => {} },
-    { title: 'Personal profile', icon: '📝', color: colors.success, action: () => {} },
-    { title: 'Message center', icon: '💬', color: colors.error, action: () => {} },
-    { title: 'Login and security', icon: '🔒', color: colors.primary, action: () => {} },
-    { title: 'Data and privacy', icon: '🛡️', color: colors.darkGray, action: () => {} },
+    { title: 'Invite Friends', icon: '👥', color: colors.primary },
+    { title: 'Account Info', icon: '👤', color: colors.secondary },
+    { title: 'Personal profile', icon: '📝', color: colors.success },
+    { title: 'Message center', icon: '💬', color: colors.error },
+    { title: 'Login and security', icon: '🔒', color: colors.primary },
+    { title: 'Data and privacy', icon: '🛡️', color: colors.darkGray },
+    // 4. Add the "Logout" button to your menu items array
+    { title: 'Logout', icon: '🚪', color: colors.darkGray, action: 'logout' },
   ];
-
-  const displayName = userProfile?.name || user?.user_metadata?.full_name || 'User';
-  const displayEmail = userProfile?.email || user?.email || 'No email';
 
   return (
     <SafeAreaView style={styles.container}>
@@ -87,24 +43,20 @@ const ProfileScreen = ({ navigation }) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.profileSection}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>
-              {displayName.charAt(0).toUpperCase()}
-            </Text>
+            <Text style={styles.avatarText}>👤</Text>
           </View>
-          <Text style={styles.name}>{displayName}</Text>
-          <Text style={styles.email}>{displayEmail}</Text>
-          
-          {loading && (
-            <Text style={styles.loadingText}>Loading profile...</Text>
-          )}
+          {/* Use the user's actual name and email from the auth object */}
+          <Text style={styles.name}>{user?.user_metadata?.name || 'User'}</Text>
+          <Text style={styles.email}>{user?.email}</Text>
         </View>
         
         <View style={styles.menuSection}>
           {menuItems.map((item, index) => (
+            // 5. Modify the TouchableOpacity to handle the press action
             <TouchableOpacity 
               key={index} 
               style={styles.menuItem}
-              onPress={item.action}
+              onPress={item.action === 'logout' ? handleSignOut : () => Alert.alert("Navigate", `Tapped on ${item.title}`)}
             >
               <View style={[styles.menuIcon, { backgroundColor: item.color }]}>
                 <Text style={styles.menuIconText}>{item.icon}</Text>
@@ -114,20 +66,12 @@ const ProfileScreen = ({ navigation }) => {
             </TouchableOpacity>
           ))}
         </View>
-
-        <View style={styles.logoutSection}>
-          <Button
-            title="Sign Out"
-            onPress={handleLogout}
-            variant="secondary"
-            style={styles.logoutButton}
-          />
-        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
+// --- Styles remain the same ---
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -147,15 +91,13 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.gray,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 16,
   },
   avatarText: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: colors.white,
+    fontSize: 40,
   },
   name: {
     fontSize: fonts.sizes.large,
@@ -167,15 +109,8 @@ const styles = StyleSheet.create({
     fontSize: fonts.sizes.medium,
     color: colors.darkGray,
   },
-  loadingText: {
-    fontSize: fonts.sizes.small,
-    color: colors.darkGray,
-    marginTop: 8,
-    fontStyle: 'italic',
-  },
   menuSection: {
     backgroundColor: colors.white,
-    marginBottom: 20,
   },
   menuItem: {
     flexDirection: 'row',
@@ -205,14 +140,6 @@ const styles = StyleSheet.create({
   menuArrow: {
     fontSize: 16,
     color: colors.darkGray,
-  },
-  logoutSection: {
-    paddingHorizontal: 20,
-    paddingBottom: 30,
-  },
-  logoutButton: {
-    borderColor: colors.error,
-    borderWidth: 1,
   },
 });
 
